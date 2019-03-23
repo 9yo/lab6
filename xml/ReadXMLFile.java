@@ -1,3 +1,6 @@
+package xml;
+
+
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
@@ -9,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.BufferedInputStream;
 import java.util.Stack;
+import collectible.Hero;
 
 
 public class ReadXMLFile {

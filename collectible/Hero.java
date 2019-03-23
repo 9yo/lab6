@@ -1,7 +1,10 @@
+package collectible;
+
 public class Hero implements Comparable<Hero> {
 
-	protected String name;
-	protected Integer age;
+	protected String name; //name 
+	protected Integer age; // size analog
+	protected String description; // object description
 
 	public Hero() {}
 

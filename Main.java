@@ -2,8 +2,12 @@ import java.util.Stack;
 import java.util.Scanner;
 import java.util.Date;
 import java.io.File;
-import org.json.*;
 import java.io.FileNotFoundException;
+import org.json.*;
+import collectible.Hero;
+import xml.*;
+
+    
 
 public class Main {
 
@@ -65,12 +69,7 @@ public class Main {
 	                    break;
 
 	                case ("info"):
-	                	try {
 	                		print_info(hero_stack, file_name, stack_initialization_time.toString());
-	                	} catch(java.util.EmptyStackException er) {
-	                		//System.out.println("The Stack is empty!");
-	                	}
-
 	                    break;
 
 	                case ("remove_last"):
@@ -217,11 +216,40 @@ public class Main {
         System.out.println("Тип коллекции: Stack");
         System.out.println("Время создания коллекции: " + stack_initialization_time);
         System.out.println("Колличество эллементов коллекции: " + hero_stack.size());
-        Hero first_hero = hero_stack.peek();
-        System.out.println("Значение минимального эллемента: " + Integer.toString(first_hero.get_age()));
-        System.out.println("Коллекция хранится в файле: " + file_name + ".xml");
-
+        try {
+       		Hero first_hero = hero_stack.peek();
+        	System.out.println("Значение минимального эллемента: " + Integer.toString(first_hero.get_age()));
+        	System.out.println("Коллекция хранится в файле: " + file_name + ".xml");
+        } catch(java.util.EmptyStackException er) {}
 
     }
 
+}
+  
+class SortStack 
+{ 
+    // This function return the sorted stack 
+    public static Stack<Hero> sort_stack(Stack<Hero>  
+                                             input) 
+    { 
+        Stack<Hero> tmpStack = new Stack<Hero>(); 
+        while(!input.isEmpty()) 
+        { 
+            // pop out the first element 
+            Hero tmp = input.pop(); 
+          
+            // while temporary stack is not empty and 
+            // top of stack is greater than temp 
+            while(!tmpStack.isEmpty() && tmpStack.peek().compareTo(tmp) > 0) 
+            { 
+                // pop from temporary stack and  
+                // push it to the input stack 
+                input.push(tmpStack.pop()); 
+            } 
+              
+            // push temp in tempory of stack 
+            tmpStack.push(tmp); 
+        } 
+        return tmpStack; 
+    } 
 }
