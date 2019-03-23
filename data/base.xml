@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<heroes_data>
+    <hero>
+        <firstname>ARTEM</firstname>
+        <age>17</age>
+    </hero>
+    <hero>
+        <firstname>ARTEM</firstname>
+        <age>18</age>
+    </hero>
+    <hero>
+        <firstname>ARTEM</firstname>
+        <age>18</age>
+    </hero>
+</heroes_data>
