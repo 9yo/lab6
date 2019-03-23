@@ -54,6 +54,16 @@ public class WriteXMLFile {
 	        age.appendChild(doc.createTextNode(Integer.toString(hero.get_age())));
 	        staff.appendChild(age);
 
+            //description elements
+            Element description = doc.createElement("description");
+            description.appendChild(doc.createTextNode(hero.get_description()));
+            staff.appendChild(description);
+
+            //location
+            Element location = doc.createElement("location");
+            location.appendChild(doc.createTextNode(hero.get_location().toString()));
+            staff.appendChild(location);
+
 	    }
 
         // write the content into xml file

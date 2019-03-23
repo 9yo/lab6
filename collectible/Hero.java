@@ -2,14 +2,14 @@ package collectible;
 
 public class Hero implements Comparable<Hero> {
 
-	private class Location {
+	public static class Location {
 		protected String name;
 
-		public void set_name(String name) {
+		public Location(String name) {
 			this.name = name;
 		}
 
-		public String get_name() {
+		public String toString() {
 			return this.name;
 		}
 	}

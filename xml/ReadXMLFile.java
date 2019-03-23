@@ -43,7 +43,10 @@ public class ReadXMLFile {
                                  .item(0).getTextContent());
             hero.set_age(Integer.parseInt(eElement.getElementsByTagName("age")
                                  .item(0).getTextContent()));
-
+            hero.set_description(eElement.getElementsByTagName("description")
+                                 .item(0).getTextContent());
+            hero.set_location(new Hero.Location(eElement.getElementsByTagName("location")
+                                 .item(0).getTextContent()));
             hero_stack.push(hero);
         }    
     }

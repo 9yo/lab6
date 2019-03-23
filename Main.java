@@ -34,15 +34,17 @@ public class Main {
         		file.createNewFile();
         	} catch (java.io.IOException e) {
         		e.printStackTrace();
+                }
         	}
+        else { 
+            hero_stack = ReadXMLFile.read(file_name);
+        }
 
-        	}
-
-        //hero_stack = ReadXMLFile.read(file_name);
-        hero_stack = SortStack.sort_stack(hero_stack);
+        hero_stack = show(hero_stack);
 
         boolean running = true;
         Scanner input = new Scanner(System.in);
+
         String menu = "";
         menu+= ">info: вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)\n";
         menu+= ">clear: очистить коллекцию\n";
@@ -69,7 +71,7 @@ public class Main {
 	                    break;
 
 	                case ("info"):
-	                		print_info(hero_stack, file_name, stack_initialization_time.toString());
+	                	print_info(hero_stack, file_name, stack_initialization_time.toString());
 	                    break;
 
 	                case ("remove_last"):
@@ -82,6 +84,7 @@ public class Main {
 
 	                case ("add"):
 	                    hero_stack = add(hero_stack, command[1]);
+                        System.out.println(command[1]);
 	                    hero_stack = SortStack.sort_stack(hero_stack);
 	                    break;
 
@@ -95,7 +98,7 @@ public class Main {
 	                    hero_stack = SortStack.sort_stack(hero_stack);
 	                    break;        
 	            }
-	        System.out.println("\n\n");   
+	        System.out.println("\n");   
 	        } catch (Exception e) {
 	        	e.printStackTrace();
 	        }
@@ -109,7 +112,7 @@ public class Main {
      */
 
     public static void remove_last(Stack < Hero > hero_stack) {
-        hero_stack.pop();
+        System.out.println(hero_stack.stream().findFirst());
     }
 
     /**
@@ -133,7 +136,7 @@ public class Main {
         Stack < Hero > tmp_stack = new Stack < > ();
         while (!hero_stack.empty()) {
             Hero hero = hero_stack.pop();
-            System.out.println("Имя:" + hero.get_name() + ". Возвраст:" + hero.get_age() + ".");
+            System.out.println("Имя:" + hero.get_name() + ". Возвраст:" + hero.get_age() + ". Описание:" + hero.get_description() + ". Расположение:" + hero.get_location().toString());
             tmp_stack.push(hero);
         }
 
@@ -142,7 +145,7 @@ public class Main {
     }
 
     /**
-     * <p>Добовляет эллемент в коллекцию</p>
+     * <p>Добавляет эллемент в коллекцию</p>
      *
      * @param hero_stack коллекция, в которую нужно добавить эллемент
      * @param json параметры объекта в формате json
@@ -153,7 +156,9 @@ public class Main {
         JSONObject obj = new JSONObject(json);
         String hero_name = obj.getJSONObject("hero").getString("firstname");
         String hero_age = obj.getJSONObject("hero").getString("age");
-        Hero hero = new Hero(hero_name, Integer.parseInt(hero_age));
+        String hero_description = obj.getJSONObject("hero").getString("description");
+        String hero_location = obj.getJSONObject("hero").getString("location");
+        Hero hero = new Hero(hero_name, Integer.parseInt(hero_age), hero_description, new Hero.Location(hero_location));
         hero_stack.push(hero);
         return hero_stack;
 
