@@ -33,14 +33,20 @@ public class Main {
         	}
 
         	}
-        
-
 
         //hero_stack = ReadXMLFile.read(file_name);
         hero_stack = SortStack.sort_stack(hero_stack);
 
         boolean running = true;
         Scanner input = new Scanner(System.in);
+        String menu = "";
+        menu+= ">info: вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)\n";
+        menu+= ">clear: очистить коллекцию\n";
+        menu+= ">remove_last: удалить последний элемент из коллекции\n";
+        menu+= ">add {element}: добавить новый элемент в коллекцию\n";
+        menu+= ">add_if_max {element}: добавить новый элемент в коллекцию, если его значение превышает значение наибольшего элемента этой коллекции\n";
+        menu+= ">remove {element}: удалить элемент из коллекции по его значению\n";
+        menu+= ">show: вывести в стандартный поток вывода все элементы коллекции в строковом представлении\n";
 
         while (running) {
 
@@ -51,12 +57,20 @@ public class Main {
 
 	            switch (command[0]) {
 
+	            	case ("menu"):
+	            		System.out.println(menu);
+
 	                case ("clear"):
 	                    clear(hero_stack);
 	                    break;
 
 	                case ("info"):
-	                    print_info(hero_stack, file_name, stack_initialization_time.toString());
+	                	try {
+	                		print_info(hero_stack, file_name, stack_initialization_time.toString());
+	                	} catch(java.util.EmptyStackException er) {
+	                		//System.out.println("The Stack is empty!");
+	                	}
+
 	                    break;
 
 	                case ("remove_last"):
@@ -80,9 +94,9 @@ public class Main {
 	                case ("add_if_max"):
 	                    hero_stack = add_if_max(hero_stack, command[1]);
 	                    hero_stack = SortStack.sort_stack(hero_stack);
-	                    break;
-
+	                    break;        
 	            }
+	        System.out.println("\n\n");   
 	        } catch (Exception e) {
 	        	e.printStackTrace();
 	        }
