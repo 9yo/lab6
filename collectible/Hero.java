@@ -12,6 +12,10 @@ public class Hero implements Comparable<Hero> {
 		public String toString() {
 			return this.name;
 		}
+
+		public Boolean equals(Location location) {
+			return this.name.equals(location.toString()); 
+		}
 	}
 
 	protected String name; //name 
@@ -76,6 +80,10 @@ public class Hero implements Comparable<Hero> {
 
 		return age.compareTo(hero.get_age());
 	}
+
+	public synchronized String toString() {
+		return "Имя:" + this.name + ". Возвраст:" + this.age + ". Описание:" + this.description + ". Расположение:" + this.location.toString();
+	}	
 
 }
 

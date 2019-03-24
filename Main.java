@@ -40,8 +40,6 @@ public class Main {
             hero_stack = ReadXMLFile.read(file_name);
         }
 
-        hero_stack = show(hero_stack);
-
         boolean running = true;
         Scanner input = new Scanner(System.in);
 
@@ -79,16 +77,15 @@ public class Main {
 	                    break;
 
 	                case ("show"):
-	                    hero_stack = show(hero_stack);
+	                    show(hero_stack);
 	                    break;
 
 	                case ("add"):
-	                    hero_stack = add(hero_stack, command[1]);
-                        System.out.println(command[1]);
+	                    add(hero_stack, command[1]);
 	                    hero_stack = SortStack.sort_stack(hero_stack);
 	                    break;
 
-	                case ("remove"):
+	                case ("remove"): // remove {"hero": {"firstname":"bb", "age":"17", "description":"rasd", "location": "Doca2"}}
 	                    hero_stack = remove(hero_stack, command[1]);
 	                    hero_stack = SortStack.sort_stack(hero_stack);
 	                    break;
@@ -112,7 +109,8 @@ public class Main {
      */
 
     public static void remove_last(Stack < Hero > hero_stack) {
-        System.out.println(hero_stack.stream().findFirst());
+        //System.out.println(hero_stack.stream().findFirst().get());
+        hero_stack.pop();
     }
 
     /**
@@ -132,15 +130,10 @@ public class Main {
      * @return возвращает эту же коллекцию
      */
 
-    public static Stack < Hero > show(Stack < Hero > hero_stack) {
-        Stack < Hero > tmp_stack = new Stack < > ();
-        while (!hero_stack.empty()) {
-            Hero hero = hero_stack.pop();
-            System.out.println("Имя:" + hero.get_name() + ". Возвраст:" + hero.get_age() + ". Описание:" + hero.get_description() + ". Расположение:" + hero.get_location().toString());
-            tmp_stack.push(hero);
-        }
-
-        return tmp_stack;
+    public static void show(Stack < Hero > hero_stack) {
+        StringBuilder output = new StringBuilder();
+        hero_stack.stream().forEach(h -> output.append(h.toString() + '\n'));
+        System.out.println(output.toString());
 
     }
 
@@ -152,15 +145,15 @@ public class Main {
      * @return возвращает коллекцию с новым эллементом
      */
 
-    public static Stack < Hero > add(Stack < Hero > hero_stack, String json) {
+    public static void add(Stack < Hero > hero_stack, String json) {
         JSONObject obj = new JSONObject(json);
-        String hero_name = obj.getJSONObject("hero").getString("firstname");
-        String hero_age = obj.getJSONObject("hero").getString("age");
-        String hero_description = obj.getJSONObject("hero").getString("description");
-        String hero_location = obj.getJSONObject("hero").getString("location");
-        Hero hero = new Hero(hero_name, Integer.parseInt(hero_age), hero_description, new Hero.Location(hero_location));
+        Hero hero = new Hero(
+                obj.getJSONObject("hero").getString("firstname"),
+                Integer.parseInt(obj.getJSONObject("hero").getString("age")),
+                obj.getJSONObject("hero").getString("description"),
+                new Hero.Location(obj.getJSONObject("hero").getString("location"))
+                );
         hero_stack.push(hero);
-        return hero_stack;
 
     }
 
@@ -175,14 +168,21 @@ public class Main {
 
     public static Stack < Hero > remove(Stack < Hero > hero_stack, String json) {
         JSONObject obj = new JSONObject(json);
-        String hero_name = obj.getJSONObject("hero").getString("firstname");
-        String hero_age = obj.getJSONObject("hero").getString("age");
         Stack < Hero > new_stack = new Stack < > ();
-        for (Hero hero: hero_stack) {
-            if (!hero.get_name().equals(hero_name) || !hero.get_age().equals(Integer.parseInt(hero_age))) {
-                new_stack.push(hero);
-            }
-        }
+        hero_stack.stream().forEach(hero -> {  
+            if (!hero.get_name().equals(
+                    obj.getJSONObject("hero").getString("firstname")) || 
+                !hero.get_age().equals(
+                    Integer.parseInt(obj.getJSONObject("hero").getString("age"))) ||
+                !hero.get_description().equals(
+                    obj.getJSONObject("hero").getString("description")) ||
+                !hero.get_location().equals(
+                    new Hero.Location(obj.getJSONObject("hero").getString("location")))) {
+
+                 new_stack.push(hero);
+  
+                }
+            });
         return new_stack;
 
     }
@@ -199,10 +199,10 @@ public class Main {
 
     public static Stack < Hero > add_if_max(Stack < Hero > hero_stack, String json) {
         JSONObject obj = new JSONObject(json);
-        String hero_name = obj.getJSONObject("hero").getString("firstname");
-        String hero_age = obj.getJSONObject("hero").getString("age");
         Hero hero = hero_stack.peek();
-        Hero json_hero = new Hero(hero_name, Integer.parseInt(hero_age));
+        Hero json_hero = new Hero(obj.getJSONObject("hero").getString("firstname"), 
+                                    Integer.parseInt(obj.getJSONObject("hero").getString("age")));
+
         if (hero.compareTo(json_hero) > 0) {
             hero_stack.push(json_hero);
         }
@@ -218,15 +218,20 @@ public class Main {
      */
 
     public static void print_info(Stack < Hero > hero_stack, String file_name, String stack_initialization_time) {
-        System.out.println("Тип коллекции: Stack");
-        System.out.println("Время создания коллекции: " + stack_initialization_time);
-        System.out.println("Колличество эллементов коллекции: " + hero_stack.size());
+        StringBuilder output = new StringBuilder();
+        output.append("Тип коллекции: Stack\n");
+        output.append("Время создания коллекции: " + stack_initialization_time + "\n");
+        output.append("Колличество эллементов коллекции: " + hero_stack.size() + "\n");
         try {
        		Hero first_hero = hero_stack.peek();
-        	System.out.println("Значение минимального эллемента: " + Integer.toString(first_hero.get_age()));
-        	System.out.println("Коллекция хранится в файле: " + file_name + ".xml");
-        } catch(java.util.EmptyStackException er) {}
+        	output.append("Значение минимального эллемента: " + Integer.toString(first_hero.get_age()));
+        	output.append("Коллекция хранится в файле: " + file_name + ".xml");
+        } 
+        catch(java.util.EmptyStackException er) {}
 
+        finally {
+            System.out.println(output.toString());
+        }
     }
 
 }

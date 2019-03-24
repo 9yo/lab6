@@ -24,4 +24,16 @@
         <description>freak</description>
         <location>Doca2</location>
     </hero>
+    <hero>
+        <firstname>ARTEM</firstname>
+        <age>18</age>
+        <description>freak</description>
+        <location>Doca2</location>
+    </hero>
+    <hero>
+        <firstname>ARTEM</firstname>
+        <age>18</age>
+        <description>freak</description>
+        <location>Doca2</location>
+    </hero>
 </heroes_data>
