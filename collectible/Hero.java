@@ -1,8 +1,11 @@
 package collectible;
 
-public class Hero implements Comparable<Hero> {
+import java.io.Serializable;
 
-	public static class Location {
+
+public class Hero implements Comparable<Hero>, Serializable  {
+
+	public static class Location implements Serializable {
 		protected String name;
 
 		public Location(String name) {
@@ -44,44 +47,44 @@ public class Hero implements Comparable<Hero> {
 		this.location = location;
 	}
 
-	public synchronized void set_age(Integer age) {
+	public void set_age(Integer age) {
 		this.age = age;
 	}
 
-	public synchronized Integer get_age() {
+	public Integer get_age() {
 		return this.age;
 	}
 
-	public synchronized void set_name(String name) {
+	public void set_name(String name) {
 		this.name = name;
 	}
 
-	public synchronized String get_name() {
+	public String get_name() {
 		return this.name;
 	}
 
-	public synchronized void set_description(String description) {
+	public void set_description(String description) {
 		this.description = description;
 	}
 
-	public synchronized String get_description() {
+	public String get_description() {
 		return this.description;
 	}
 
-	public synchronized void set_location(Location location) {
+	public void set_location(Location location) {
 		this.location = location;
 	}
 
-	public synchronized Location get_location() {
+	public Location get_location() {
 		return this.location;
 	}
 
-	public synchronized int compareTo(Hero hero) {
+	public int compareTo(Hero hero) {
 
 		return age.compareTo(hero.get_age());
 	}
 
-	public synchronized String toString() {
+	public String toString() {
 		return "Имя:" + this.name + ". Возвраст:" + this.age + ". Описание:" + this.description + ". Расположение:" + this.location.toString();
 	}	
 

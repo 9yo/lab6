@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<heroes_data>
+    <hero>
+        <firstname>bb</firstname>
+        <age>17</age>
+        <description>rasd</description>
+        <location>Doca2</location>
+    </hero>
+    <hero>
+        <firstname>bb</firstname>
+        <age>17</age>
+        <description>rasd</description>
+        <location>Doca2</location>
+    </hero>
+    <hero>
+        <firstname>bb</firstname>
+        <age>17</age>
+        <description>rasd</description>
+        <location>Doca2</location>
+    </hero>
+    <hero>
+        <firstname>bb</firstname>
+        <age>17</age>
+        <description>rasd</description>
+        <location>Doca2</location>
+    </hero>
+</heroes_data>

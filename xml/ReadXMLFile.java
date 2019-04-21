@@ -17,12 +17,11 @@ import collectible.Hero;
 
 public class ReadXMLFile {
 
-  public static Stack<Hero> read(String file_name) {
+  public static Stack<Hero> read(String file_path) {
 
     Stack<Hero> hero_stack = new Stack<>();
 
     try {
-    String file_path = "data/" + file_name + ".xml";
     FileInputStream fXmlFile = new FileInputStream(new File(file_path));
     BufferedInputStream buf = new BufferedInputStream(fXmlFile);
 
